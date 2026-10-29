@@ -1,0 +1,3 @@
+[submodule "packrenameconv"]
+	path = packrenameconv
+	url = https://github.com/minemeer/packrenameconv.git
