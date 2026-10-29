@@ -1,11 +1,315 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <h1>MM-Tools</h1>
-    <p>Welcome! Here you can find the Browser-Tools of minemeeer.</p>
-    <li><a href="packrenameconv/">Pack Renamer</li>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Launcher for MineMeeer Tools – installable as an app" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MM Tools" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <title>MineMeeer Tools Launcher</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #334155;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-dim: #0ea5e9;
+      --border: #334155;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    .header {
+      text-align: center;
+      padding: 2rem 1.25rem 1.5rem;
+    }
+
+    .logo {
+      font-size: 2.75rem;
+      margin-bottom: .5rem;
+      filter: drop-shadow(0 0 12px rgba(56,189,248,.4));
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: .35rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: .95rem;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    .lang-badge {
+      display: inline-block;
+      margin-top: .75rem;
+      padding: .2rem .6rem;
+      font-size: .7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text-muted);
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 1.25rem 2rem;
+    }
+
+    .tools {
+      display: flex;
+      flex-direction: column;
+      gap: .85rem;
+    }
+
+    .tool-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow);
+      transition: background .15s, border-color .15s, transform .12s;
+    }
+
+    .tool-card:hover,
+    .tool-card:focus-visible {
+      background: var(--surface-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .tool-card:active {
+      transform: translateY(0);
+    }
+
+    .tool-icon {
+      font-size: 1.75rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .tool-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .tool-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: .15rem;
+    }
+
+    .tool-desc {
+      font-size: .85rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tool-arrow {
+      color: var(--accent);
+      font-size: 1.25rem;
+      opacity: .7;
+      flex-shrink: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Install prompt (optional) */
+    .install-banner {
+      display: none;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-dim);
+      color: #0f172a;
+      padding: .7rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .9rem;
+      box-shadow: 0 8px 24px rgba(14,165,233,.4);
+      cursor: pointer;
+      z-index: 100;
+      border: none;
+    }
+
+    .install-banner.show { display: block; }
+
+    /* Fallback without JS: show English */
+    .lang-de { display: none; }
+    .lang-en { display: block; }
+  </style>
+</head>
+<body>
+  <!-- English (default / no-JS) -->
+  <div class="lang-en" id="content-en">
+    <header class="header">
+      <div class="logo">🛠️</div>
+      <h1>MineMeeer Tools Launcher</h1>
+      <p class="subtitle">Launcher for MineMeeer Tools – installable as an app</p>
+      <span class="lang-badge">EN</span>
+    </header>
+    <main>
+      <div class="tools">
+
+      <a class="tool-card" href="https://minemeer.github.io/mm-tools/packrenameconv/en/" data-tool-id="packrenameconv" target="_blank" rel="noopener">
+        <span class="tool-icon">🔨</span>
+        <div class="tool-info">
+          <h2 class="tool-name">Minecraft Rename-Item Pack Generator</h2>
+          <p class="tool-desc">Creates resource packs where renamed items (anvil) receive a new 2D texture or 3D model.</p>
+        </div>
+        <span class="tool-arrow">→</span>
+      </a>
+      </div>
+    </main>
+  </div>
+
+  <!-- German (shown only when JS detects de) -->
+  <div class="lang-de" id="content-de" hidden>
+    <header class="header">
+      <div class="logo">🛠️</div>
+      <h1>MineMeeer Tools Launcher</h1>
+      <p class="subtitle">Launcher für MineMeeer Tools – installierbar als App</p>
+      <span class="lang-badge">DE</span>
+    </header>
+    <main>
+      <div class="tools">
+
+      <a class="tool-card" href="https://minemeer.github.io/mm-tools/packrenameconv/de/" data-tool-id="packrenameconv" target="_blank" rel="noopener">
+        <span class="tool-icon">🔨</span>
+        <div class="tool-info">
+          <h2 class="tool-name">Minecraft Rename-Item Pack Generator</h2>
+          <p class="tool-desc">Erstellt Ressourcenpakete, bei denen umbenannte Items (Amboss) eine neue 2D-Textur oder ein 3D-Modell erhalten.</p>
+        </div>
+        <span class="tool-arrow">→</span>
+      </a>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <span class="lang-en">MineMeeer Tools · Installable PWA</span>
+    <span class="lang-de" hidden>MineMeeer Tools · Installierbare PWA</span>
+  </footer>
+
+  <button class="install-banner" id="installBtn" type="button">App installieren / Install App</button>
+
+  <script>
+    (function () {
+      // --- Language detection ---
+      // Prefer German if any preferred language starts with "de", otherwise English.
+      var preferDe = false;
+      try {
+        var langs = navigator.languages || [navigator.language || navigator.userLanguage || "en"];
+        for (var i = 0; i < langs.length; i++) {
+          if (String(langs[i]).toLowerCase().indexOf("de") === 0) {
+            preferDe = true;
+            break;
+          }
+        }
+      } catch (e) {}
+
+      if (preferDe) {
+        document.documentElement.lang = "de";
+        // Hide EN, show DE
+        var enBlocks = document.querySelectorAll(".lang-en");
+        var deBlocks = document.querySelectorAll(".lang-de");
+        for (var i = 0; i < enBlocks.length; i++) {
+          enBlocks[i].style.display = "none";
+          enBlocks[i].hidden = true;
+        }
+        for (var j = 0; j < deBlocks.length; j++) {
+          deBlocks[j].style.display = "block";
+          deBlocks[j].hidden = false;
+        }
+        // Update meta description
+        var meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.content = "Launcher f\u00fcr MineMeeer Tools \u2013 installierbar als App";
+        document.title = "MineMeeer Tools Launcher";
+      }
+
+      // --- Service Worker ---
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("./sw.js").catch(function () {});
+        });
+      }
+
+      // --- Install prompt ---
+      var deferredPrompt = null;
+      var installBtn = document.getElementById("installBtn");
+
+      window.addEventListener("beforeinstallprompt", function (e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (installBtn) installBtn.classList.add("show");
+      });
+
+      if (installBtn) {
+        installBtn.addEventListener("click", function () {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function () {
+            deferredPrompt = null;
+            installBtn.classList.remove("show");
+          });
+        });
+      }
+
+      window.addEventListener("appinstalled", function () {
+        if (installBtn) installBtn.classList.remove("show");
+        deferredPrompt = null;
+      });
+    })();
+  </script>
+</body>
 </html>
