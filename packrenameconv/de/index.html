@@ -3,7 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minecraft Rename-Item Pack Generator</title>
+  <title>Minecraft Rename-Item Pack Generator – Custom Textures &amp; 3D Models (1.21+)</title>
+  <meta name="description" content="Kostenloser Online-Generator für Minecraft Ressourcenpakete: Items per Amboss-Umbenennung mit eigener 2D-Textur oder 3D-Modell versehen. Unterstützt Pack-Formate 46–97 (1.21.4 bis 26.3), Import bestehender Packs, clientseitig im Browser.">
+  <meta name="keywords" content="Minecraft, Resource Pack, Ressourcenpaket, Rename Item, Custom Model, Amboss, Custom Name, 1.21, 1.21.11, 26.1, 26.2, Pack Generator, 3D Modell, Blockbench, CIT, Custom Item Texture, mmnamegen, Minecraft Tool">
+  <meta name="author" content="Minecraft Rename-Item Pack Generator">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="theme-color" content="#0f1419">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://minemeer.github.io/mm-tools/packrenameconv/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://minemeer.github.io/mm-tools/packrenameconv/">
+  <meta property="og:title" content="Minecraft Rename-Item Pack Generator – 2D &amp; 3D Custom Items">
+  <meta property="og:description" content="Erstelle Minecraft Ressourcenpakete, bei denen umbenannte Items (Amboss) eine neue 2D-Textur oder ein 3D-Modell erhalten. Kostenlos, clientseitig, Pack-Formate 1.21.4–26.3.">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="Minecraft Rename-Item Pack Generator">
+  <meta property="og:image" content="https://minemeer.github.io/mm-tools/packrenameconv/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Minecraft Rename-Item Pack Generator Screenshot">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Minecraft Rename-Item Pack Generator – 2D &amp; 3D">
+  <meta name="twitter:description" content="Kostenloser Browser-Tool: Minecraft Items per Amboss-Name mit eigener Textur oder 3D-Modell. Import, Export, Pack-Format wählbar.">
+  <meta name="twitter:image" content="https://minemeer.github.io/mm-tools/packrenameconv/og-image.png">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Minecraft Rename-Item Pack Generator",
+    "alternateName": "Rename-Item Pack Generator",
+    "description": "Erstellt Ressourcenpakete für Minecraft Java Edition, bei denen umbenannte Items im Amboss eine neue 2D-Textur oder ein 3D-Modell erhalten. Unterstützt Pack-Formate ab 1.21.4, Import bestehender Packs und 3D-Modelle aus ZIP.",
+    "url": "https://minemeer.github.io/mm-tools/packrenameconv/",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any (Browser)",
+    "browserRequirements": "Requires JavaScript. Works in modern browsers.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "featureList": [
+      "2D-Texturen per PNG",
+      "3D-Modelle per ZIP (Blockbench u.a.)",
+      "Pack-Format Auswahl (46–97)",
+      "Bestehende Packs importieren und bearbeiten",
+      "Vollständig clientseitig, keine Uploads"
+    ],
+    "inLanguage": "de",
+    "keywords": "Minecraft Resource Pack, Rename Item, Custom Model, Amboss, 1.21, 26.2"
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <style>
     :root {
@@ -276,10 +332,17 @@
 <body>
 <div class="container">
   <header>
-    <h1>Rename-Item Pack Generator</h1>
+    <h1>Minecraft Rename-Item Pack Generator</h1>
     <p>Erstellt Ressourcenpakete, bei denen umbenannte Items (Amboss) eine neue 2D-Textur oder ein 3D-Modell erhalten.<br>
-    Unterstützt Minecraft 1.21.4+ (Item-Definitionen in <code>assets/.../items/</code>).</p>
+    Unterstützt Minecraft 1.21.4+ bis 26.3 (Item-Definitionen in <code>assets/.../items/</code>). Kostenlos &amp; vollständig im Browser.</p>
   </header>
+
+  <!-- SEO-sichtbarer Intro-Text (für Crawler & Nutzer) -->
+  <div class="card" id="seo-intro" style="font-size:.9rem;color:var(--text-muted);">
+    <p><strong style="color:var(--text);">Was macht dieses Tool?</strong>
+    Mit dem Minecraft Rename-Item Pack Generator erstellst du Resource Packs, in denen Items nach dem Umbenennen im Amboss eine eigene Textur oder ein 3D-Modell bekommen – ohne Mods, rein mit Vanilla-Mechaniken (Custom Name + Item-Definitionen ab 1.21.4/1.21.5).</p>
+    <p style="margin-top:.6rem;">Features: 2D-PNG-Texturen, 3D-Modelle aus ZIP (z.&nbsp;B. Blockbench), wählbares Pack-Format (46–97), Import bestehender Packs zum Weiterbearbeiten, alles clientseitig – keine Server-Uploads.</p>
+  </div>
 
   <!-- 1. Pack-Format & Import -->
   <div class="card">
@@ -368,6 +431,12 @@
     <button type="button" id="generateBtn" class="btn btn-primary btn-block">ZIP generieren &amp; herunterladen</button>
     <div id="log"></div>
   </div>
+
+  <footer style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border);text-align:center;font-size:.8rem;color:var(--text-muted);line-height:1.6;">
+    <p><strong style="color:var(--text);">Minecraft Rename-Item Pack Generator</strong> – Kostenloses Online-Tool für Custom Item Textures &amp; 3D Models per Amboss-Umbenennung.</p>
+    <p>Kompatibel mit Minecraft Java 1.21.4, 1.21.5, 1.21.6, 1.21.7, 1.21.8, 1.21.9, 1.21.10, 1.21.11, 26.1, 26.2, 26.3 · Pack-Format 46–97</p>
+    <p style="margin-top:.5rem;">Kein Account, kein Upload – alles läuft lokal in deinem Browser. Ideal als Alternative zu CIT / OptiFine Custom Item Textures für Vanilla.</p>
+  </footer>
 </div>
 
 <!-- Edit Modal -->
